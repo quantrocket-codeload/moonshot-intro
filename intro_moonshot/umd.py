@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import pandas as pd
 from moonshot import Moonshot
 from moonshot.commission import PerShareCommission
 
@@ -35,7 +36,7 @@ class UpMinusDown(Moonshot):
     TOP_N_PCT = 50 # Buy/sell the top/bottom 50%
     REBALANCE_INTERVAL = "M" # M = monthly; see https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases
 
-    def prices_to_signals(self, prices):
+    def prices_to_signals(self, prices: pd.DataFrame):
         """
         This method receives a DataFrame of prices and should return a
         DataFrame of integer signals, where 1=long, -1=short, and 0=cash.
@@ -68,7 +69,7 @@ class UpMinusDown(Moonshot):
 
         return signals
 
-    def signals_to_target_weights(self, signals, prices):
+    def signals_to_target_weights(self, signals: pd.DataFrame, prices: pd.DataFrame):
         """
         This method receives a DataFrame of integer signals (-1, 0, 1) and
         should return a DataFrame indicating how much capital to allocate to
@@ -79,7 +80,7 @@ class UpMinusDown(Moonshot):
         weights = self.allocate_equal_weights(signals)
         return weights
 
-    def target_weights_to_positions(self, weights, prices):
+    def target_weights_to_positions(self, weights: pd.DataFrame, prices: pd.DataFrame):
         """
         This method receives a DataFrame of allocations and should return a
         DataFrame of positions. This allows for modeling the delay between
@@ -89,7 +90,7 @@ class UpMinusDown(Moonshot):
         # Enter the position in the period/day after the signal
         return weights.shift()
 
-    def positions_to_gross_returns(self, positions, prices):
+    def positions_to_gross_returns(self, positions: pd.DataFrame, prices: pd.DataFrame):
         """
         This method receives a DataFrame of positions and a DataFrame of
         prices, and should return a DataFrame of percentage returns before
