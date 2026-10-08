@@ -34,7 +34,7 @@ class UpMinusDown(Moonshot):
     MOMENTUM_WINDOW = 252 # rank by twelve-month returns
     RANKING_PERIOD_GAP = 22 # but exclude most recent 1 month performance
     TOP_N_PCT = 50 # Buy/sell the top/bottom 50%
-    REBALANCE_INTERVAL = "M" # M = monthly; see https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases
+    REBALANCE_INTERVAL = "ME" # ME = monthly; see https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#offset-aliases
 
     def prices_to_signals(self, prices: pd.DataFrame):
         """
